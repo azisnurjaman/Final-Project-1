@@ -20,7 +20,6 @@ import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
-
     private SQLiteDatabaseHandler sqLiteDatabaseHandler;
     private ListView ListTugas;
     private ArrayAdapter<String> arrAdapter;
