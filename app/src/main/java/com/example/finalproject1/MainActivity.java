@@ -95,16 +95,17 @@ public class MainActivity extends AppCompatActivity {
             arrAdapter.clear();
             arrAdapter.addAll(taskList);
             arrAdapter.notifyDataSetChanged();
-        if (arrayAdapter == null) {
-            arrayAdapter = new ArrayAdapter<>(this, R.layout.todo_task, R.id.judul_tugas, taskList);
-            TaskList.setAdapter(arrayAdapter);
-        } else {
-            arrayAdapter.clear();
-            arrayAdapter.addAll(taskList);
-            arrayAdapter.notifyDataSetChanged();
-        }
+            if (arrAdapter == null) {
+                arrAdapter = new ArrayAdapter<>(this, R.layout.todo_list, R.id.judul_tugas, taskList);
+                ListTugas.setAdapter(arrAdapter);
+            } else {
+                arrAdapter.clear();
+                arrAdapter.addAll(taskList);
+                arrAdapter.notifyDataSetChanged();
+            }
 
-        cursor.close();
-        db.close();
+            cursor.close();
+            db.close();
+        }
     }
 }
