@@ -52,10 +52,10 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 String task = String.valueOf(taskEdit.getText());
-                                SQLiteDatabase db = taskHelper.getWritableDatabase();
+                                SQLiteDatabase db = sqLiteDatabaseHandler.getWritableDatabase();
                                 ContentValues values = new ContentValues();
-                                values.put(TaskContract.TaskEntry.COL_TASK_TITLE, task);
-                                db.insertWithOnConflict(TaskContract.TaskEntry.TABLE, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+                                values.put(TaskHandler.TaskEntry.COLUMN_TASK_TITLE, task);
+                                db.insertWithOnConflict(TaskHandler.TaskEntry.TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
                                 db.close();
                                 updateUI();
                             }
@@ -73,30 +73,30 @@ public class MainActivity extends AppCompatActivity {
         View parent = (View) view.getParent();
         TextView taskTextView = (TextView) parent.findViewById(R.id.judul_tugas);
         String task = String.valueOf(taskTextView.getText());
-        SQLiteDatabase db = taskHelper.getWritableDatabase();
-        db.delete(TaskContract.TaskEntry.TABLE, TaskContract.TaskEntry.COL_TASK_TITLE + " = ?", new String[]{task});
+        SQLiteDatabase db = sqLiteDatabaseHandler.getWritableDatabase();
+        db.delete(TaskHandler.TaskEntry.TABLE_NAME, TaskHandler.TaskEntry.COLUMN_TASK_TITLE + " = ?", new String[]{task});
         db.close();
         updateUI();
     }
 
     private void updateUI() {
         ArrayList<String> taskList = new ArrayList<>();
-        SQLiteDatabase db = taskHelper.getReadableDatabase();
-        Cursor cursor = db.query(TaskContract.TaskEntry.TABLE,
-                new String[]{TaskContract.TaskEntry._ID, TaskContract.TaskEntry.COL_TASK_TITLE},
+        SQLiteDatabase db = sqLiteDatabaseHandler.getReadableDatabase();
+        Cursor cursor = db.query(TaskHandler.TaskEntry.TABLE_NAME,
+                new String[]{TaskHandler.TaskEntry._ID, TaskHandler.TaskEntry.COLUMN_TASK_TITLE},
                 null, null, null, null, null);
         while (cursor.moveToNext()) {
-            int idx = cursor.getColumnIndex(TaskContract.TaskEntry.COL_TASK_TITLE);
+            int idx = cursor.getColumnIndex(TaskHandler.TaskEntry.COLUMN_TASK_TITLE);
             taskList.add(cursor.getString(idx));
         }
 
-        if (arrAdapter == null) {
-            arrAdapter = new ArrayAdapter<>(this, R.layout.todo_task, R.id.judul_tugas, taskList);
-            TaskList.setAdapter(arrAdapter);
+        if (arrayAdapter == null) {
+            arrayAdapter = new ArrayAdapter<>(this, R.layout.todo_task, R.id.judul_tugas, taskList);
+            TaskList.setAdapter(arrayAdapter);
         } else {
-            arrAdapter.clear();
-            arrAdapter.addAll(taskList);
-            arrAdapter.notifyDataSetChanged();
+            arrayAdapter.clear();
+            arrayAdapter.addAll(taskList);
+            arrayAdapter.notifyDataSetChanged();
         }
 
         cursor.close();
