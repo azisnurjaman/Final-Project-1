@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         sqLiteDatabaseHandler = new SQLiteDatabaseHandler(this);
         ListTugas = (ListView) findViewById(R.id.list_tugas);
+        updateUI();
     }
 
     @Override
