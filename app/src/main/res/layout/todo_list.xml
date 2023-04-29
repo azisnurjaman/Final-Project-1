@@ -12,13 +12,14 @@
         android:layout_alignParentStart="true"
         android:textSize="20sp" />
 
-    <Button
+    <ImageButton
         android:id="@+id/hapus_tugas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:onClick="hapusTugas"
         android:layout_alignParentRight="true"
-        android:text="Task Completed" />
+        android:src="@drawable/ic_baseline_check_24"
+        android:backgroundTint="@color/design_default_color_primary"/>
 
 </RelativeLayout>
